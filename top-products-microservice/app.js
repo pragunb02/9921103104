@@ -6,10 +6,14 @@ const productRoutes = require("./routes/productRoutes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect("mongodb://localhost:27017/top_products", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect("mongodb://127.0.0.1:27017/top_products")
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error", err);
+  });
 
 app.use(bodyParser.json());
 app.use("/categories", productRoutes);
